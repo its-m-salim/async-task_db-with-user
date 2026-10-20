@@ -69,6 +69,14 @@ async def main():
                                 st = int(input("1)Change password\n2)Delete user"))
                             except ValueError:
                                 print("Please choose from options below")
+                            match st:
+                                case 1:
+                                    # pss = input(f"Input current password for user '{is_login[1]}'")
+                                    # if await check_user(pss) == None:
+                                    #     print("No")
+                                    # else:
+                                    #     print("Yes")
+                                    print("ON PROGGRESS")
                     case 0:
                         print(f"\n{dec} LOGOUT! {dec}\n")
                         is_login = None

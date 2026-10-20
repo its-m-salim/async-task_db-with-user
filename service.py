@@ -143,3 +143,8 @@ Task added at: {user["task_created_at"]}
     finally:
         await conn.close()
 
+# async def check_user(username):
+#     conn  = await connection_db()
+#     user = await conn.fetchrow("select username from users where password = $1",username )
+#     print(user)
+#     await conn.close()
