@@ -116,3 +116,30 @@ async def get_user(username):
         print(f"{type(error)}: {error}")
     finally:
         await conn.close()
+
+
+async def show_profile(user_id):
+    try:
+        conn = await connection_db()
+        profile = await conn.fetch("""
+            select u.username, u.created_at,( select COUNT(*) from task where task.user_id = u.user_id) as total_tasks,
+            task.title as last_added_task, task.created_at as task_created_at from users as u
+            left join task on task.user_id = u.user_id
+            where u.user_id = $1
+            order by task.created_at desc
+            limit 1
+    """, user_id)
+        for user in profile:
+            print(f"""
+Usename: {user["username"]}
+User created at: {user["created_at"]}
+Total tasks created: {user["total_tasks"]}
+Last added task title: {user["last_added_task"]}
+Task added at: {user["task_created_at"]} 
+
+""")
+    except Exception as error:
+        print(f"{type(error)}: {error}")
+    finally:
+        await conn.close()
+

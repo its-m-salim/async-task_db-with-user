@@ -45,7 +45,7 @@ async def main():
         else:
             while True:
                 print(f"{dec} LOGIN AS '{is_login[1]}' {dec}")
-                n = int(input("1)Create task\n2)Get task\n3)Update task\n0)Exit\nChoose one: "))
+                n = int(input("1)Create task\n2)Get task\n3)Update task\n4)Show Profile\n0)Logout\nChoose one: "))
                 match n:
                     case 1:
                         await create_task(is_login[0],input("Tile: "), input("Description: "), input("Dueration date:"))
@@ -61,7 +61,17 @@ async def main():
                         except ValueError:
                             print("Id must be an integer!")
                             continue
+                    case 4:
+                        print(f"{dec} Your Profile {dec}")
+                        await show_profile(is_login[0])
+                        while True:
+                            try:
+                                st = int(input("1)Change password\n2)Delete user"))
+                            except ValueError:
+                                print("Please choose from options below")
                     case 0:
+                        print(f"\n{dec} LOGOUT! {dec}\n")
+                        is_login = None
                         break
                     case _:
                         print("Invalid input")
